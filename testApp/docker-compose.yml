@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  novisign-app:
+    image: novisign
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql:/postgres:5432/postgres?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+
+  database:
+    container_name: novisign-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=iamgroot
+      - POSTGRES_USER=root
+      - POSTGRES_DB=postgres
+    image: postgres:11.3-alpine
+
+
+
+
