@@ -1,4 +1,4 @@
-create table project
+create table project_entity
 (
     id           uuid         not null
         constraint project_pkey

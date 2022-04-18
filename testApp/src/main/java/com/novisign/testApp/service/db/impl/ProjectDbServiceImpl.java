@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class ProjectDbServiceImpl implements ProjectDbService {
@@ -31,8 +33,9 @@ public class ProjectDbServiceImpl implements ProjectDbService {
     }
 
     @Override
-    public Mono<ProjectEntity> delete(String name) {
+    public Mono<Void> delete(String name) {
         return projectRepository.findByName(name)
-                .doOnNext(projectRepository::delete);
+                .filter(Objects::nonNull)
+                .flatMap(projectRepository::delete);
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class UserDbServiceImpl implements UserDbService {
@@ -31,8 +33,9 @@ public class UserDbServiceImpl implements UserDbService {
     }
 
     @Override
-    public Mono<UserEntity> delete(String loginName) {
+    public Mono<Void> delete(String loginName) {
         return userRepository.findByLoginName(loginName)
-                .doOnNext(userRepository::delete);
+                .filter(Objects::nonNull)
+                .flatMap(userRepository::delete);
     }
 }

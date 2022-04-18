@@ -45,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Mono<ProjectEntity> delete(String name) {
+    public Mono<Void> delete(String name) {
         return projectDbService.delete(name);
     }
 }

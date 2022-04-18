@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,7 +19,6 @@ import java.util.Set;
 @Getter
 @Setter
 @DynamicUpdate
-@Table(name = "project")
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectEntity extends BaseEntity {
@@ -30,6 +29,7 @@ public class ProjectEntity extends BaseEntity {
     @Column(nullable = false)
     private byte status;
 
+    @Transient
     @ManyToMany(mappedBy = "projects")
     private Set<UserEntity> users = new HashSet<>();
 

@@ -40,6 +40,6 @@ public class UserController {
 
     @DeleteMapping("/{loginName}")
     public Mono<Void> delete(@PathVariable String loginName) {
-        return userService.delete(loginName).then();
+        return userService.delete(loginName);
     }
 }

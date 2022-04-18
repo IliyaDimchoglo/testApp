@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Mono<UserEntity> delete(String loginName) {
+    public Mono<Void> delete(String loginName) {
         return userDbService.delete(loginName);
     }
 }

@@ -12,5 +12,5 @@ public interface ProjectDbService {
 
     Mono<ProjectEntity> getByName(String name);
 
-    Mono<ProjectEntity> delete(String name);
+    Mono<Void> delete(String name);
 }

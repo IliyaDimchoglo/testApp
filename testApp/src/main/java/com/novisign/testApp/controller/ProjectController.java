@@ -36,7 +36,7 @@ public class ProjectController {
 
     @DeleteMapping("/{name}")
     public Mono<Void>  delete(@PathVariable String name) {
-        return projectService.delete(name).then();
+        return projectService.delete(name);
     }
 
     @PostMapping

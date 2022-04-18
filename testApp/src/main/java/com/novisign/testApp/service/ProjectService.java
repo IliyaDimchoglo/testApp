@@ -23,5 +23,5 @@ public interface ProjectService {
     Mono<ProjectEntity> update(UpdateProjectRequest request, String name);
 
     @Transactional
-    Mono<ProjectEntity> delete(String name);
+    Mono<Void> delete(String name);
 }

@@ -1,22 +1,22 @@
 package com.novisign.testApp.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public class BaseEntity {
 
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class BaseEntity implements Serializable {
     private UUID id;
 
     @CreationTimestamp
-    protected LocalDate createdTime;
+    private Instant createdTime;
 
     @UpdateTimestamp
-    protected LocalTime updatedTime;
+    private Instant updatedTime;
 
     @Override
     public boolean equals(Object o) {

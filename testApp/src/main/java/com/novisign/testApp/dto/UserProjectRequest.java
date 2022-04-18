@@ -14,5 +14,5 @@ public class UserProjectRequest {
     @NotBlank
     private String projectName;
     @NotBlank
-    private String userName;
+    private String loginName;
 }

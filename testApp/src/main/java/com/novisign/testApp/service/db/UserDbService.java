@@ -12,5 +12,5 @@ public interface UserDbService {
 
     Flux<UserEntity> getAll();
 
-    Mono<UserEntity> delete(String loginName);
+    Mono<Void> delete(String loginName);
 }
