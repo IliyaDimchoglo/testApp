@@ -10,7 +10,7 @@ services:
     depends_on:
       - database
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql:/postgres:5432/postgres?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:postgresql://novisign-db:5432/novisign-db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
 
   database:
     container_name: novisign-db
@@ -19,7 +19,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=iamgroot
       - POSTGRES_USER=root
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=novisign-db
     image: postgres:11.3-alpine
 
 

@@ -16,7 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.HashSet;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,16 +41,17 @@ public class UserServiceTest {
 
     @Test
     public void loginTest() {
-        when(userDbService.getByLoginName(anyString())).thenReturn(Mono.just(user));
+        when(userDbService.save(any())).thenReturn(Mono.just(user));
+        when(mapper.toEntity(any())).thenReturn(user);
 
         Mono<UserEntity> response = userService.login(new LoginRequest(fullName, loginName, pass));
 
         assertEquals(requireNonNull(response.block()).getLoginName(), user.getLoginName());
-        verify(userDbService, times(1)).getByLoginName(anyString());
+        verify(userDbService, times(1)).save(any());
     }
 
     @Test
-    public void getAllTest(){
+    public void getAllTest() {
         when(userDbService.getAll()).thenReturn(Flux.just(user));
         when(mapper.toDto(any())).thenReturn(new UserDto(loginName, fullName, null));
 
@@ -62,7 +62,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void updateTest(){
+    public void updateTest() {
         when(userDbService.getByLoginName(anyString())).thenReturn(Mono.just(user));
 
         Mono<UserEntity> updateResponse = userService.update(new UpdateUserRequest(loginName, fullName, pass), loginName);
