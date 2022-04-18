@@ -21,7 +21,7 @@ public class UserProjectDbServiceImpl implements UserProjectDbService {
     public Mono<ProjectEntity> addUser(String projectName, String loginName) {
         return projectRepository.findByName(projectName)
                 .doOnNext(project -> userRepository.findByLoginName(loginName)
-                        .doOnNext(user -> user.addProject(project))
+                        .doOnSuccess(user -> user.addProject(project))
                         .doOnError(error -> log.error("User not found. Login name {}", loginName)))
                 .doOnError(error -> log.error("Project not found. Name {}", projectName));
     }
@@ -30,7 +30,7 @@ public class UserProjectDbServiceImpl implements UserProjectDbService {
     public Mono<ProjectEntity> removeUser(String projectName, String loginName) {
         return projectRepository.findByName(projectName)
                 .doOnNext(project -> userRepository.findByLoginName(loginName)
-                        .doOnNext(user -> user.removeProject(project))
+                        .doOnSuccess(user -> user.removeProject(project))
                         .doOnError(error -> log.error("User not found. Login name {}", loginName)))
                 .doOnError(error -> log.error("Project not found. Name {}", projectName));
     }

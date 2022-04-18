@@ -13,7 +13,6 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity extends BaseEntity {
@@ -27,7 +26,7 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_project",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "project_id"))
     private Set<ProjectEntity> projects = new HashSet<>();

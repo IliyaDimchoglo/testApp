@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,7 +19,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectEntity extends BaseEntity {
@@ -30,7 +30,7 @@ public class ProjectEntity extends BaseEntity {
     private byte status;
 
     @Transient
-    @ManyToMany(mappedBy = "projects")
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
     private Set<UserEntity> users = new HashSet<>();
 
     public void addUser(UserEntity user) {

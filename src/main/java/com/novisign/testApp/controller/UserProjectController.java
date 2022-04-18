@@ -13,15 +13,15 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class UserProjectController {
 
-    private final UserProjectService projectService;
+    private final UserProjectService userProjectService;
 
     @PutMapping("/add")
     public Mono<Void> add(@Valid @RequestBody UserProjectRequest request) {
-        return projectService.add(request).then();
+        return userProjectService.add(request).then();
     }
 
     @PutMapping("/remove")
     public Mono<Void> remove(@Valid @RequestBody UserProjectRequest request) {
-        return projectService.remove(request).then();
+        return userProjectService.remove(request).then();
     }
 }
