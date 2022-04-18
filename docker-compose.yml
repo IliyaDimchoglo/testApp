@@ -3,7 +3,7 @@ version: '3.8'
 services:
   novisign-app:
     image: novisign
-    build: .
+    build: testApp
     restart: always
     ports:
       - "8080:8080"
