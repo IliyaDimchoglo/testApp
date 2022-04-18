@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,6 +28,7 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @Transient
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_project",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "project_id"))

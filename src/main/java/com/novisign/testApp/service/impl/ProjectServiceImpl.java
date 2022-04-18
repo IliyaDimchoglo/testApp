@@ -23,7 +23,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Mono<ProjectEntity> create(CreateProjectRequest request) {
-        return projectDbService.save(mapper.toEntity(request));
+        return projectDbService.save(mapper.toEntity(request))
+                .doOnSuccess(project -> log.info("[x] Project with name: {} creating", project.getName()));
     }
 
     @Override
@@ -46,6 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Mono<Void> delete(String name) {
-        return projectDbService.delete(name);
+        return projectDbService.delete(name)
+                .doOnSuccess(e -> log.info("[x] Project with name: {} deleting", name));
     }
 }

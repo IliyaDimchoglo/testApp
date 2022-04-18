@@ -24,7 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<UserEntity> login(LoginRequest request) {
-        return userDbService.save(mapper.toEntity(request));
+        return userDbService.save(mapper.toEntity(request))
+                .doOnSuccess(user -> log.info("User successfully saved. LoginName: {} ", user.getLoginName()));
     }
 
     @Override
@@ -47,6 +48,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Void> delete(String loginName) {
-        return userDbService.delete(loginName);
+        return userDbService.delete(loginName).doOnSuccess(e -> log.info("[x] User successfully deleted. LoginName {}", loginName));
     }
 }

@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.Objects;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,16 +21,16 @@ public class UserProjectServiceImpl implements UserProjectService {
     @Override
     public Mono<ProjectEntity> add(UserProjectRequest request) {
         return projectDbService.getByName(request.getProjectName())
-                .filter(Objects::nonNull)
-                .doOnSuccess(project -> project.addUser(userDbService.getByLoginName(request.getLoginName()).block()))
+                .doOnNext(project -> userDbService.getByLoginName(request.getLoginName())
+                        .doOnNext(project::addUser))
                 .doOnError(error -> log.error("[x] Filed to add user to the project"));
     }
 
     @Override
     public Mono<ProjectEntity> remove(UserProjectRequest request) {
         return projectDbService.getByName(request.getProjectName())
-                .filter(Objects::nonNull)
-                .doOnSuccess(project -> project.removeUser(userDbService.getByLoginName(request.getLoginName()).block()))
+                .doOnNext(project -> userDbService.getByLoginName(request.getLoginName())
+                        .doOnNext(project::removeUser))
                 .doOnError(error -> log.error("[x] Filed to remove user from the project"));
     }
 }

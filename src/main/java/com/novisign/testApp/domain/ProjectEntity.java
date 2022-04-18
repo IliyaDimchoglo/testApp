@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Column;

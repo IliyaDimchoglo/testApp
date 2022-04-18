@@ -1,6 +1,5 @@
 package com.novisign.testApp.controller;
 
-import com.novisign.testApp.domain.ProjectEntity;
 import com.novisign.testApp.dto.CreateProjectRequest;
 import com.novisign.testApp.dto.ProjectDto;
 import com.novisign.testApp.dto.UpdateProjectRequest;
@@ -20,22 +19,22 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping
-    public Flux<ProjectDto> getAll(){
+    public Flux<ProjectDto> getAll() {
         return projectService.getAll();
     }
 
     @GetMapping("/{name}")
-    public Mono<ProjectDto> get(@PathVariable String name){
+    public Mono<ProjectDto> get(@PathVariable String name) {
         return projectService.get(name);
     }
 
     @PutMapping("/{name}")
-    public Mono<Void> update(@Valid @RequestBody UpdateProjectRequest request, @PathVariable String name){
+    public Mono<Void> update(@Valid @RequestBody UpdateProjectRequest request, @PathVariable String name) {
         return projectService.update(request, name).then();
     }
 
     @DeleteMapping("/{name}")
-    public Mono<Void>  delete(@PathVariable String name) {
+    public Mono<Void> delete(@PathVariable String name) {
         return projectService.delete(name);
     }
 

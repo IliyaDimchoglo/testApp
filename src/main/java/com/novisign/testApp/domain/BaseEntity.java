@@ -1,6 +1,6 @@
 package com.novisign.testApp.domain;
 
-import lombok.*;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,22 +11,14 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+
+@Data
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     @Column(nullable = false, unique = true, updatable = false)
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @CreationTimestamp
     private Instant createdTime;
